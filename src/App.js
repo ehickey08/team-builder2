@@ -4,13 +4,14 @@ import TeamMember from './components/TeamMember'
 import Form from './components/Form'
 
 import './App.css';
-import { validate } from '@babel/types';
+
 
 function App() {
     const [teamMembers, setTeamMembers] = useState([]);
     const [formError, setFormError] = useState('');
     const [memberToEdit, setMemberToEdit] = useState('');
     const [memberIndex, setMemberIndex] = useState(0);
+    const [teamNames, setTeamNames] = useState(['Test1', 'Test2']);
 
     const addTeamMember = (member) => {
         setFormError('')
@@ -45,7 +46,7 @@ function App() {
             setFormError('Invalid Email')
             return false
         }
-        let validName = /^[a-z]+ ?[a-z]+$/i.test(member.name)
+        let validName = /^([a-z\.]+ ?)+$/i.test(member.name)
         if(!validName && typeof(member.name)==='string'){
             setFormError('Invalid Name')
             return false
