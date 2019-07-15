@@ -15,7 +15,6 @@ function App() {
     const addTeamMember = (member) => {
         setFormError('')
         let valid = validate(member)
-        console.log(valid, formError)
         if(valid){
             setTeamMembers([...teamMembers, {...member, index: memberIndex}])
             setMemberIndex(memberIndex+1)
@@ -25,7 +24,6 @@ function App() {
     const editTeamMember = (editMember) => {
         setFormError('')
         let valid = validate(editMember)
-        console.log(valid, formError)
         if(valid){
             setTeamMembers([...teamMembers.map(member => {
                 if(member.index === editMember.index)
@@ -43,12 +41,12 @@ function App() {
 
     const validate = (member) => {
         let validEmail = /^[^@]+@[^@]+\.[^@\.]+$/.test(member.email)
-        if(!validEmail){
+        if(!validEmail && typeof(member.email) === 'string'){
             setFormError('Invalid Email')
             return false
         }
-        let validName = /^[a-z]+ ?[a-z]+$/.test(member.name)
-        if(!validName){
+        let validName = /^[a-z]+ ?[a-z]+$/i.test(member.name)
+        if(!validName && typeof(member.name)==='string'){
             setFormError('Invalid Name')
             return false
         }
