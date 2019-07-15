@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 function Form(props) {
-    const [inputValue, setInputValue] = useState({'name': '', 'email': '', 'role': 'UX Designer'});
+    const [inputValue, setInputValue] = useState({'name': '', 'email': '', 'role': 'UX Designer', 'teamName': 'Build Week'});
     
     const submitMember = (e) => {
         e.preventDefault();
@@ -10,7 +10,7 @@ function Form(props) {
             props.edit(inputValue)
         else
             props.add(inputValue)
-        setInputValue({'name': '', 'email': '', 'role': 'UX Designer'})
+        setInputValue({'name': '', 'email': '', 'role': 'UX Designer', 'teamName': 'Build Week'})
     }
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function Form(props) {
     }, [props.memberToEdit]);
     
     const updateEditing = () => {
-        setInputValue({'name': '', 'email': '', 'role': 'UX Designer'})
+        setInputValue({'name': '', 'email': '', 'role': 'UX Designer', 'teamName': 'Build Week'})
         props.reset()
     }
     return (
@@ -48,6 +48,12 @@ function Form(props) {
                         <option value='UI Developer'>UI Developer</option>
                         <option value='Front-End Engineer'>Front-End Engineer</option>
                         <option value='Back-End Engineer'>Back-End Engineer</option>
+                    </select>
+                </div>
+                <div>
+                    <label> Team Name:</label>
+                    <select value={inputValue.role} onChange={(e) => setInputValue({...inputValue, 'teamName': e.target.value})}> 
+                        {props.teamNames.map(teamName=> <option key={teamName} value={teamName}>{teamName}</option>)}
                     </select>
                 </div>
                 <div className="buttons">
