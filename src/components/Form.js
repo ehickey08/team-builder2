@@ -52,7 +52,7 @@ function Form(props) {
                 </div>
                 <div>
                     <label> Team Name:</label>
-                    <select value={inputValue.role} onChange={(e) => setInputValue({...inputValue, 'teamName': e.target.value})}> 
+                    <select value={inputValue.teamName} onChange={(e) => setInputValue({...inputValue, 'teamName': e.target.value})}> 
                         {props.teamNames.map(teamName=> <option key={teamName} value={teamName}>{teamName}</option>)}
                     </select>
                 </div>

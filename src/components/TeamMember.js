@@ -50,6 +50,8 @@ const MemberContainer = styled.div`
             border-bottom: 2px solid #b2b2b2;
             width: 80px;
             margin: 5px auto;
+            border-radius: 5px;
+            padding: 5px;
 
         &:hover {
             color: #333333;

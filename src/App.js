@@ -12,7 +12,6 @@ function App() {
     const [teamMembers, setTeamMembers] = useState([]);
     const [formError, setFormError] = useState('');
     const [memberToEdit, setMemberToEdit] = useState('');
-    const [memberIndex, setMemberIndex] = useState(0);
     const [teamNames, setTeamNames] = useState(['Build Week', 'Labs']);
     const [visible, setVisible] = useState(false);
     const [newTeamName, setNewTeamName] = useState('');
@@ -21,8 +20,7 @@ function App() {
         setFormError('')
         let valid = validate(member)
         if(valid){
-            setTeamMembers([...teamMembers, {...member, index: memberIndex}])
-            setMemberIndex(memberIndex+1)
+            setTeamMembers([...teamMembers, {...member, index: teamMembers.length}])
         }
     }
 
@@ -30,12 +28,12 @@ function App() {
         setFormError('')
         let valid = validate(editMember)
         if(valid){
-            setTeamMembers([...teamMembers.map(member => {
+            setTeamMembers(teamMembers.map(member => {
                 if(member.index === editMember.index)
                     return editMember
                 else
                     return member
-            })])
+            }))
         }
         setMemberToEdit('')
     }
@@ -62,7 +60,9 @@ function App() {
         e.preventDefault();
         setTeamNames([...teamNames, newTeamName])
         setVisible(false)
+        setNewTeamName('')
     }
+    
     return (
         <div className="App">
             {formError && <h2>{formError}</h2>}
@@ -78,10 +78,11 @@ function App() {
                 visible={visible}
                 title="Add A New Team"
                 onOk={(e) => addTeamName(e)}
-                onCancel={() => setVisible(false)}
+                onCancel={() => {setVisible(false); setNewTeamName('')}}
             >
                 <form onSubmit={(e) => addTeamName(e)}>
                     <input
+                        autoFocus
                         type="text"
                         value={newTeamName}
                         onChange={(e)=> setNewTeamName(e.target.value)}
@@ -114,6 +115,8 @@ const AddTeam = styled.button`
     border-bottom: 2px solid #b2b2b2;
     width: 150px;
     margin: 5px auto;
+    border-radius: 5px;
+    padding: 5px;
 
     &:hover {
         color: #333333;
